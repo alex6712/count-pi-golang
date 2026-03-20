@@ -39,9 +39,9 @@ func main() {
 	numWorkers := min(*iterations, runtime.GOMAXPROCS(0))
 
 	results := make([]float64, numWorkers)
-	var wg sync.WaitGroup
-
 	chunkSize := *iterations / numWorkers
+
+	var wg sync.WaitGroup
 
 	start := time.Now()
 
@@ -49,7 +49,6 @@ func main() {
 		startTerm := i * chunkSize
 		endTerm := startTerm + chunkSize - 1
 
-		// Последний воркер забирает остаток
 		if i == numWorkers-1 {
 			endTerm = *iterations - 1
 		}
